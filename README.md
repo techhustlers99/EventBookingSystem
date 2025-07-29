@@ -124,6 +124,6 @@ MIT License. Free to use for personal and commercial projects.
 
 ## 📬 Contact
 
-**Author:** Your Name  
-**Email:** your.email@example.com  
+**Author:** Tech Hustlers  
+**Email:** techhustlers@gmail.com 
 **LinkedIn:** [linkedin.com/in/yourprofile](https://linkedin.com/in/yourprofile)
