@@ -127,3 +127,100 @@ MIT License. Free to use for personal and commercial projects.
 **Author:** Tech Hustlers  
 **Email:** techhustlers@gmail.com 
 **LinkedIn:** [linkedin.com/in/yourprofile](https://linkedin.com/in/yourprofile)
+
+---
+
+## ⚙️ Functionality & Business Logic
+
+### 1. 👤 User Authentication & Roles
+
+| Role            | Capabilities                          |
+|-----------------|----------------------------------------|
+| Guest           | View public event listings             |
+| Registered User | Book events, view bookings, cancel     |
+| Admin           | Create/edit/delete events, view stats  |
+
+- Auth uses **JWT Tokens** (with ASP.NET Identity).
+- Roles are enforced via `[Authorize(Roles = "Admin")]` in backend.
+
+---
+
+### 2. 📆 Event Listing & Filtering
+
+- Users can browse events and filter by:
+  - 📍 Location
+  - 🏷 Category
+  - 📅 Date Range
+- Each event has a detailed page (`/events/:id`) showing:
+  - Description, Date/Time, Venue, Image, Remaining Seats
+
+---
+
+### 3. 🎟 Ticket Booking Flow
+
+1. **User books an event**
+2. System checks seat availability
+3. Booking is saved to DB (linked to User & Event)
+4. A **unique QR token** is generated
+5. Confirmation email sent to user (with QR code)
+
+- Prevents overbooking using server-side seat checks
+- QR codes are stored in `Bookings` table (as tokens)
+
+---
+
+### 4. 📲 QR Code Check-In System
+
+- QR generated with `QRCoder` and embedded in email
+- At event, staff can **scan the QR code**
+- System checks token validity and booking status
+- Booking status is updated to **"Checked-In"**
+
+---
+
+### 5. 🛠 Admin Features
+
+| Feature           | Description                       |
+|------------------|-----------------------------------|
+| Add/Edit Events   | Through protected API endpoints   |
+| Delete Events     | Soft delete or permanent          |
+| View Bookings     | List/filter by event or user      |
+| Export Attendees  | Optional CSV export               |
+
+- Admin UI is protected in the frontend via route guards
+
+---
+
+### 6. 📬 Email Notifications
+
+| Trigger              | Email Sent                      |
+|----------------------|----------------------------------|
+| Successful Booking   | QR Code + Event Details         |
+| Cancellation         | Booking cancel confirmation     |
+
+- Implemented with **SendGrid** or **MailKit SMTP**
+- Email templates include venue, date, and ticket info
+
+---
+
+### 7. 🔐 Security Measures
+
+| Area          | Protection Mechanism                  |
+|---------------|----------------------------------------|
+| Auth          | JWT with expiration and claims         |
+| API Access    | CORS (only frontend origin allowed)    |
+| DB Access     | EF Core ORM, no raw SQL                |
+| HTTPS         | Enforced via Azure/Vercel              |
+| Secrets       | Stored in env or Azure Key Vault       |
+| Admin APIs    | Role-based authorization (`[Authorize]`) |
+
+---
+
+## 🧠 Future Enhancements
+
+- 💳 Payment Gateway (Stripe/Razorpay)
+- 📅 Google Calendar Sync
+- ⭐ Event Ratings & Reviews
+- 📊 Admin Dashboard with Charts
+- 🔔 Real-Time Notifications
+
